@@ -1,0 +1,35 @@
+package servlets;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ *
+ * @author 799768
+ */
+public class HelloWorldServlet extends HttpServlet {
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        getServletContext().getRequestDispatcher("/WEB-INF/helloWorldForm.jsp")
+                .forward(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String firstname = request.getParameter("firstname"); //"firstname" is taken from helloWorldForm.jsp name of the input text box "firstname"
+        String lastname = request.getParameter("lastname");
+        
+        request.setAttribute("firstname", firstname);
+        request.setattribute("lastname", lastname);
+        
+        getServletContext().getRequestDispatcher("/WEB-INF/sayHello.jsp")
+                .forward(request, response);
+    }
+}
